@@ -8,6 +8,8 @@ Key Features:
 
 - State Management: It maintains states for the product list, loading status, error messages, button disable status, and fetch count.
 
+- Scroll Position Preservation: Ensures that the scroll position is preserved when new products are loaded, enhancing user experience by preventing the page from jumping back to the top.
+
 - Conditional Rendering: It displays a loading message while data is being fetched and shows an error message if the fetch fails.
 
 - Button Disable Logic: The "Load More Products" button is disabled when there are no more products to load.
