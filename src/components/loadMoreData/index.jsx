@@ -6,7 +6,7 @@ export default function LoadMoreData({ url, limit }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [disableButton, setDisableButton] = useState(false);
+    const [hasMoreProducts, setHasMoreProducts] = useState(true);
     const isMounted = useRef(false);
 
     async function fetchProducts() {
@@ -18,7 +18,10 @@ export default function LoadMoreData({ url, limit }) {
                 throw new Error('Error occured. please try again.');
             }
             const data = await res.json();
-            setProducts((prevData) => [...prevData, ...data.products])
+            setProducts((prevData) => [...prevData, ...data.products]);
+            if (data.products.length < limit) {
+                setHasMoreProducts(false);
+            }
         } catch (err) {
             setError(err.message);
         } finally {
@@ -34,18 +37,12 @@ export default function LoadMoreData({ url, limit }) {
         }
     }, [count, url])
 
-    useEffect(() => {
-        products?.length === 100 && setDisableButton(true);
-    })
-
     if (loading) {
         return <div>Loading...</div>
     }
     if (error) {
         return <div>{error}</div>
     }
-
-    console.log(products);
 
     return (
         <div className='container'>
@@ -69,8 +66,17 @@ export default function LoadMoreData({ url, limit }) {
                     ))
                 }
             </div>
-            {disableButton && <p>No more products to load</p>}
-            <button disabled={disableButton} className={!disableButton ? 'button' : 'button disabled'} onClick={() => setCount(count + 1)}>Load More Products</button>
+            {!hasMoreProducts && <p>No more products to load</p>}
+            <button
+                disabled={!hasMoreProducts}
+                className={hasMoreProducts
+                    ? 'button'
+                    : 'button disabled'
+                }
+                onClick={() => setCount(count + 1)}
+            >
+                Load More Products
+            </button>
         </div>
     )
 }
