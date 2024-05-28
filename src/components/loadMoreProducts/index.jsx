@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './styles.css';
 
-export default function LoadMoreData({ url, limit }) {
+export default function LoadMoreProducts({ url, limit }) {
     // State variables for managing product data, loading status, error messages, and pagination
     const [count, setCount] = useState(0);
     const [products, setProducts] = useState([]);

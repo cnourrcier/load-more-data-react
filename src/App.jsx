@@ -1,12 +1,12 @@
-import LoadMoreData from './components/loadMoreData/index';
+import LoadMoreProducts from './components/loadMoreProducts/index';
 
 function App() {
 
   return (
     <>
-      <LoadMoreData url={'https://dummyjson.com/products'} limit={20} />
+      <LoadMoreProducts url={'https://dummyjson.com/products'} limit={20} />
     </>
   )
 }
 
-export default App
+export default App;
